@@ -1,5 +1,5 @@
 # ============================================================================
-# SPLEEN DIMENSION PREDICTION - STREAMLIT APP (FIXED)
+# SPLEEN DIMENSION PREDICTION - STREAMLIT APP 
 # ============================================================================
 """
 Streamlit-based web application for spleen dimension prediction.
@@ -71,7 +71,7 @@ if missing_deps:
     st.stop()
 
 # ============================================================================
-# NOW IMPORT ALL REQUIRED MODULES
+# IMPORT ALL REQUIRED MODULES
 # ============================================================================
 
 import pandas as pd
@@ -221,7 +221,7 @@ st.markdown("""
     🫀 Spleen Dimension Predictor
     </h1>
     <p style='text-align: center; color: #666; font-size: 1.1em;'>
-    Advanced ML-Based Ultrasound Measurement Prediction System
+    Advanced ML-Based CT Scan Measurement Prediction System
     </p>
 """, unsafe_allow_html=True)
 
@@ -245,8 +245,8 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### ℹ️ About")
     st.markdown("""
-    This application uses machine learning models trained on 500+ 
-    patient ultrasound records to predict spleen dimensions based on:
+    This application uses machine learning models trained on 200+ 
+    patient CT scan records to predict spleen dimensions based on:
     - Age
     - Weight
     - Height
@@ -455,6 +455,6 @@ if uploaded_file is not None:
 st.markdown("---")
 st.markdown("""
     <p style='text-align: center; color: #999; font-size: 0.9em;'>
-    Spleen Dimension Prediction System | Powered by Advanced Machine Learning | © 2025
+    Spleen Dimension Prediction System | Powered by Ravidz | © 2025
     </p>
 """, unsafe_allow_html=True)
