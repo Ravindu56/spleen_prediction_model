@@ -4,7 +4,7 @@
 
 A machine learning-based clinical decision support system for predicting spleen dimensions (length, width, and volume) from patient biometric data using optimized linear regression models. This system was developed to assist radiologists in preliminary screening and has been deployed as a web application for clinical use.
 
-**Status:** ✅ Production Ready | Live at: [Streamlit Cloud](https://streamlit.io/cloud)
+**Status:** ✅ Production Ready | Live at: [Streamlit Cloud](https://spleenpredictionmodel.streamlit.app/)
 
 ---
 
