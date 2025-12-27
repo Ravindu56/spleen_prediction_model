@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This document provides comprehensive clinical and statistical justification for the selection of linear regression models (OLS and HuberRegressor) in the Spleen Dimension Prediction System. The choice prioritizes **interpretability, clinical safety, robustness, and regulatory compliance** over raw predictive accuracy.
+This document provides clinical and statistical justification for the selection of linear regression models (OLS and HuberRegressor) in the Spleen Dimension Prediction System. The choice prioritizes **interpretability, clinical safety, robustness, and regulatory compliance** over raw predictive accuracy.
 
 ---
 
@@ -390,7 +390,7 @@ Linear regression models satisfy:
 ```
 Patient Presentation
         ↓
-Radiologist performs standard ultrasound
+Radiologist performs standard CT scan
         ↓
 Manual measurements taken
         ↓
