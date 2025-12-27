@@ -1,27 +1,83 @@
 # ============================================================================
-# SPLEEN DIMENSION PREDICTION - STREAMLIT APP
+# SPLEEN DIMENSION PREDICTION - STREAMLIT APP (FIXED)
 # ============================================================================
 """
 Streamlit-based web application for spleen dimension prediction.
 
-Much easier to deploy than Flask!
+IMPORTANT: Install dependencies first:
+    pip install -r requirements.txt
+    
+Or manually:
+    pip install streamlit pandas numpy scikit-learn joblib plotly
 
 Usage:
     streamlit run streamlit_app.py
 
 Then visit: http://localhost:8501
-
-Requirements:
-    pip install streamlit pandas numpy scikit-learn joblib
 """
 
 import streamlit as st
+import sys
+
+# ============================================================================
+# DEPENDENCY CHECK AND INSTALLATION
+# ============================================================================
+
+def check_dependencies():
+    """Check and install missing dependencies"""
+    missing = []
+    
+    deps = {
+        'pandas': 'pandas',
+        'numpy': 'numpy',
+        'joblib': 'joblib',
+        'sklearn': 'scikit-learn',
+        'plotly': 'plotly'
+    }
+    
+    for module_name, package_name in deps.items():
+        try:
+            __import__(module_name)
+        except ImportError:
+            missing.append(package_name)
+    
+    return missing
+
+# Check and warn about missing dependencies
+missing_deps = check_dependencies()
+
+if missing_deps:
+    st.error("""
+    ❌ **Missing Dependencies!**
+    
+    Please install the required packages before running this app:
+    
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+    Or install individually:
+    ```bash
+    pip install streamlit pandas numpy scikit-learn joblib plotly
+    ```
+    
+    Missing packages: """ + ", ".join(missing_deps) + """
+    
+    After installation, restart Streamlit:
+    ```bash
+    streamlit run streamlit_app.py
+    ```
+    """)
+    st.stop()
+
+# ============================================================================
+# NOW IMPORT ALL REQUIRED MODULES
+# ============================================================================
+
 import pandas as pd
 import numpy as np
 import joblib
 from datetime import datetime
-import matplotlib.pyplot as plt
-import plotly.graph_objects as go
 
 # ============================================================================
 # PAGE CONFIGURATION
@@ -67,10 +123,45 @@ st.markdown("""
 def load_models():
     """Load trained models from pickle file"""
     try:
-        package = joblib.load('final_optimized_spleen_models.pkl')
+        # Try to find the model file
+        import os
+        
+        # Check current directory
+        if os.path.exists('final_optimized_spleen_models.pkl'):
+            filepath = 'final_optimized_spleen_models.pkl'
+        # Check if running from different directory
+        elif os.path.exists('../final_optimized_spleen_models.pkl'):
+            filepath = '../final_optimized_spleen_models.pkl'
+        else:
+            st.error("""
+            ❌ **Model file not found!**
+            
+            Please ensure `final_optimized_spleen_models.pkl` is in the same folder as `streamlit_app.py`
+            
+            Current directory: """ + os.getcwd() + """
+            
+            Files in current directory:
+            """ + str(os.listdir('.')))
+            st.stop()
+        
+        package = joblib.load(filepath)
         return package
-    except FileNotFoundError:
-        st.error("❌ Error: 'final_optimized_spleen_models.pkl' not found!")
+        
+    except FileNotFoundError as e:
+        st.error(f"""
+        ❌ **Error: Model file not found!**
+        
+        Please ensure `final_optimized_spleen_models.pkl` exists in the application directory.
+        
+        {str(e)}
+        """)
+        st.stop()
+    except Exception as e:
+        st.error(f"""
+        ❌ **Error loading model!**
+        
+        {str(e)}
+        """)
         st.stop()
 
 # ============================================================================
@@ -80,21 +171,6 @@ def load_models():
 def predict_dimensions(age, weight, height, models_package):
     """
     Predict spleen dimensions.
-    
-    Parameters:
-    -----------
-    age : float
-        Patient age in years
-    weight : float
-        Patient weight in kg
-    height : float
-        Patient height in cm
-    models_package : dict
-        Loaded models package
-    
-    Returns:
-    --------
-    dict : Predictions with metadata
     """
     try:
         # Calculate BSA
@@ -221,12 +297,16 @@ with col1:
         help="Patient height in centimeters"
     )
     
-    # Calculate BSA
+    # Calculate BSA and BMI
     bsa = np.sqrt((height * weight) / 3600)
+    bmi = weight / ((height/100)**2)
     
     st.markdown("#### Calculated Values")
-    st.metric("Body Surface Area (BSA)", f"{bsa:.3f} m²")
-    st.metric("BMI", f"{weight / (height/100)**2:.1f}")
+    col_bsa, col_bmi = st.columns(2)
+    with col_bsa:
+        st.metric("Body Surface Area (BSA)", f"{bsa:.3f} m²")
+    with col_bmi:
+        st.metric("BMI", f"{bmi:.1f}")
 
 with col2:
     st.markdown("### 🔮 Predictions")
@@ -253,31 +333,13 @@ with col2:
                 col_length, col_width, col_volume = st.columns(3)
                 
                 with col_length:
-                    st.markdown("""
-                    <div class='result-card'>
-                        <h3>📏 Length</h3>
-                        <h1>{:.2f}</h1>
-                        <p>centimeters (cm)</p>
-                    </div>
-                    """.format(predictions['length']), unsafe_allow_html=True)
+                    st.metric("📏 Length", f"{predictions['length']:.2f} cm")
                 
                 with col_width:
-                    st.markdown("""
-                    <div class='result-card'>
-                        <h3>📊 Width</h3>
-                        <h1>{:.2f}</h1>
-                        <p>centimeters (cm)</p>
-                    </div>
-                    """.format(predictions['width']), unsafe_allow_html=True)
+                    st.metric("📊 Width", f"{predictions['width']:.2f} cm")
                 
                 with col_volume:
-                    st.markdown("""
-                    <div class='result-card'>
-                        <h3>📦 Volume</h3>
-                        <h1>{:.0f}</h1>
-                        <p>cubic centimeters (cm³)</p>
-                    </div>
-                    """.format(predictions['volume']), unsafe_allow_html=True)
+                    st.metric("📦 Volume", f"{predictions['volume']:.0f} cm³")
 
 # Results Summary Section
 st.markdown("---")
