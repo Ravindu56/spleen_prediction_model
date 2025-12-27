@@ -37,7 +37,7 @@ A machine learning-based clinical decision support system for predicting spleen 
 
 ### Data Statistics
 
-- **Training Dataset:** 500+ patient records
+- **Training Dataset:** 200+ patient records
 - **Validation:** 10-fold cross-validation
 - **Test Split:** 20% (80% training)
 - **Feature Scaling:** StandardScaler (Length), RobustScaler (Width & Volume)
@@ -126,26 +126,17 @@ spleen-prediction-model/
 ├── README.md                           # This file
 ├── JUSTIFICATION.md                    # Clinical justification for methods
 ├── MODEL_IMPROVEMENTS.md               # Suggestions for model enhancement
-├── DEPLOYMENT.md                       # Deployment documentation
 │
 ├── requirements.txt                    # Python dependencies
-├── streamlit_app_fixed.py             # Web application (Streamlit)
-├── Flask_Backend_App.py               # REST API backend (Flask)
-├── Spleen_Predictor_Web.html          # HTML frontend
+├── streamlit_app.py           # Web application (Streamlit)
 │
 ├── final_optimized_spleen_models.pkl  # Trained models & scalers
 │
 ├── notebooks/                          # Jupyter notebooks (Colab)
-│   ├── 01_Data_Exploration.ipynb
-│   ├── 02_Feature_Engineering.ipynb
-│   ├── 03_Model_Selection.ipynb
-│   ├── 04_Hyperparameter_Tuning.ipynb
-│   ├── 05_Final_Model_Evaluation.ipynb
-│   └── 06_Model_Deployment.ipynb
+│   ├── 
 │
 ├── data/                              # Dataset information
-│   ├── original_data_summary.txt
-│   └── data_preprocessing_notes.txt
+│   ├── 
 │
 └── results/                           # Model evaluation results
     ├── model_performance_metrics.csv
@@ -541,9 +532,6 @@ This project is licensed under the MIT License - see LICENSE file for details.
 ## 📖 Additional Documentation
 
 - **[JUSTIFICATION.md](JUSTIFICATION.md)** - Clinical justification for linear regression
-- **[MODEL_IMPROVEMENTS.md](MODEL_IMPROVEMENTS.md)** - Detailed improvement suggestions
-- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Deployment instructions
-- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and fixes
 
 ---
 
