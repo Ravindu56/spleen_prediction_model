@@ -126,22 +126,19 @@ spleen-prediction-model/
 ├── README.md                           # This file
 ├── JUSTIFICATION.md                    # Clinical justification for methods
 ├── MODEL_IMPROVEMENTS.md               # Suggestions for model enhancement
-│
 ├── requirements.txt                    # Python dependencies
 ├── streamlit_app.py           # Web application (Streamlit)
 │
-├── final_optimized_spleen_models.pkl  # Trained models & scalers
-│
 ├── notebooks/                          # Jupyter notebooks (Colab)
-│   ├── 
+│   └── Spleen_prediction_model_v4.ipynb
 │
 ├── data/                              # Dataset information
-│   ├── 
-│
+│   └── Original.xlsx
+├── models
+|   └── final_optimized_spleen_models.pkl  # Trained models & scalers
+|
 └── results/                           # Model evaluation results
-    ├── model_performance_metrics.csv
-    ├── cross_validation_scores.csv
-    └── prediction_analysis.csv
+    
 ```
 
 ---
