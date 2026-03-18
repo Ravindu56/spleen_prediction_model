@@ -127,8 +127,8 @@ def load_models():
         import os
         
         # Check current directory
-        if os.path.exists('final_optimized_spleen_models.pkl'):
-            filepath = 'final_optimized_spleen_models.pkl'
+        if os.path.exists('./models/final_optimized_spleen_models.pkl'):
+            filepath = './models/final_optimized_spleen_models.pkl'
         # Check if running from different directory
         elif os.path.exists('../final_optimized_spleen_models.pkl'):
             filepath = '../final_optimized_spleen_models.pkl'
